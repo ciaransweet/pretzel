@@ -1,4 +1,7 @@
-# mosex (**Mo**norepo **Se**rverless e**X**ample) ☁️
+# mosex
+(**Mo**norepo **Se**rverless e**X**ample) ☁️
+
+---
 
 The idea behind `mosex` is to try and provide an example of a AWS hosted serverless application that is contained within a monorepo.
 

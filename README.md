@@ -1,5 +1,5 @@
-# mosex
-(**Mo**norepo **Se**rverless e**X**ample) ☁️
+# mosex ☁️
+(**Mo**norepo **Se**rverless e**X**ample)
 
 ---
 

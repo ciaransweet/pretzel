@@ -10,6 +10,8 @@ flake8 = "*"
 black = "*"
 isort = "*"
 freezegun = "*"
+"aws-cdk.core" = "*"
+"aws-cdk.aws-lambda" = "*"
 
 [packages]
 

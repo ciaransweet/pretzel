@@ -25,15 +25,19 @@ jobs:
 
       - name: Run isort
         run: |
-          pipenv run isort .
+          pipenv run isort --check-only --profile black .
 
       - name: Run black
         run: |
-          pipenv run black .
+          pipenv run black --check --diff .
 
       - name: Run flake8
         run: |
-          pipenv run flake8 .
+          pipenv run flake8
+
+      - name: Check changes
+        run: |
+          git diff --exit-code
 
   test:
     runs-on: ubuntu-latest

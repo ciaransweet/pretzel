@@ -6,6 +6,35 @@ on:
     branches: [master]
 
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8.3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.3
+
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v1
+
+      - name: Install dependencies
+        run: |
+          pipenv install -d
+
+      - name: Run isort
+        run: |
+          pipenv run isort
+
+      - name: Run black
+        run: |
+          pipenv run black
+
+      - name: Run flake8
+        run: |
+          pipenv run flake8
+
   test:
     runs-on: ubuntu-latest
     steps:

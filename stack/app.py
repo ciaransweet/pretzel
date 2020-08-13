@@ -7,9 +7,9 @@ from stack import MosexStack
 
 tags = {
     "APPLICATION": "mosex",
-    "ENV": os.environ.get('ENV', 'dev'),
-    "SOURCE": 'https://github.com/ciaranevans/mosex',
-    "ORG": "Development Seed"
+    "ENV": os.environ.get("ENV", "dev"),
+    "SOURCE": "https://github.com/ciaranevans/mosex",
+    "ORG": "Development Seed",
 }
 
 app = core.App()

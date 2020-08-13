@@ -35,7 +35,7 @@ jobs:
         run: |
           pipenv run flake8
 
-      - name: Check changes
+      - name: Check for any unknown changes
         run: |
           git diff --exit-code
 

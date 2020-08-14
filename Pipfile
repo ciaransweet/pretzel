@@ -12,6 +12,8 @@ isort = "*"
 freezegun = "*"
 "aws-cdk.core" = "*"
 "aws-cdk.aws-lambda" = "*"
+"aws-cdk.aws-ssm" = "*"
+boto3 = "*"
 
 [packages]
 

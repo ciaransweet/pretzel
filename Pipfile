@@ -14,6 +14,9 @@ freezegun = "*"
 "aws-cdk.aws-lambda" = "*"
 "aws-cdk.aws-ssm" = "*"
 boto3 = "*"
+"aws-cdk.aws-stepfunctions" = "*"
+"aws-cdk.aws-stepfunctions-tasks" = "*"
+polling2 = "*"
 
 [packages]
 

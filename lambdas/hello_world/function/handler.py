@@ -12,5 +12,6 @@ def handler(event, context):
         name = event["name"]
         return make_message(name)
     except Exception as e:
-        LOGGER.error(str(e))
-        return {"exception": str(e)}
+        err_message = f"Caught {type(e).__name__} with message: {str(e)}"
+        LOGGER.error(err_message)
+        return {"exception": err_message}

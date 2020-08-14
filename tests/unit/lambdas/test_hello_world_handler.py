@@ -14,8 +14,17 @@ def test_that_message_returned_correctly():
     )
 
 
+def test_that_no_name_handled_correctly():
+    message = handler.handler({}, None)
+    assert_that(message).is_equal_to(
+        {"exception": "Caught KeyError with message: 'name'"}
+    )
+
+
 @patch("lambdas.hello_world.function.handler.make_message")
-def test_that_error_handled_correctly(mock_make_message):
+def test_that_error_when_thrown_handled_correctly(mock_make_message):
     mock_make_message.side_effect = Exception("Im an exception")
     message = handler.handler({"name": "test-name-from-handler"}, None)
-    assert_that(message).is_equal_to({"exception": "Im an exception"})
+    assert_that(message).is_equal_to(
+        {"exception": "Caught Exception with message: Im an exception"}
+    )

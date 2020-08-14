@@ -89,10 +89,10 @@ jobs:
         run: |
           pipenv install -d
 
-      - name: Run CDK diff
+      - name: Deploy mosex
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-west-1
         run: |
-          ENV=ci pipenv run cdk diff --app stack/app.py
+          ENV=ci pipenv run cdk deploy --app stack/app.py --require-approval never

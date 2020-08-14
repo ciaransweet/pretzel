@@ -5,8 +5,23 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+assertpy = "*"
+flake8 = "*"
+black = "*"
+isort = "*"
+freezegun = "*"
+"aws-cdk.core" = "*"
+"aws-cdk.aws-lambda" = "*"
+"aws-cdk.aws-ssm" = "*"
+boto3 = "*"
+"aws-cdk.aws-stepfunctions" = "*"
+"aws-cdk.aws-stepfunctions-tasks" = "*"
+polling2 = "*"
 
 [packages]
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

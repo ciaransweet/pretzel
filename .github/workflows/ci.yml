@@ -6,8 +6,43 @@ on:
     branches: [master]
 
 jobs:
-  test:
+  linting:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8.3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.3
+
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v1
+
+      - name: Install dependencies
+        run: |
+          pipenv install -d
+
+      - name: Run isort
+        run: |
+          pipenv run isort --check-only --profile black .
+
+      - name: Run black
+        run: |
+          pipenv run black --check --diff .
+
+      - name: Run flake8
+        run: |
+          pipenv run flake8
+
+      - name: Check for any unknown changes
+        run: |
+          git diff --exit-code
+
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: linting
     steps:
       - uses: actions/checkout@v2
 
@@ -25,4 +60,105 @@ jobs:
 
       - name: Run tests
         run: |
-          pipenv run pytest
+          pipenv run pytest tests/unit
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup git vars
+        id: vars
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "##[set-output name=commit;]$(git rev-parse --short "$GITHUB_SHA")"
+
+      - name: Set up Python 3.8.3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.3
+
+      - name: Setup up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install AWS CDK
+        run: |
+          npm install -g aws-cdk
+
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v1
+
+      - name: Install dependencies
+        run: |
+          pipenv install -d
+
+      - name: Configure awscli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy mosex
+        run: |
+          ENV=${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.commit }} \
+          pipenv run cdk deploy --app stack/app.py --require-approval never
+
+      - name: Integration tests
+        run: |
+          ENV=${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.commit }} \
+          pipenv run pytest tests/integration
+
+      - name: Destroy mosex
+        if: always()
+        run: |
+          ENV=${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.commit }} \
+          pipenv run cdk destroy --app stack/app.py --force
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup git vars
+        id: vars
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Set up Python 3.8.3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.3
+
+      - name: Setup up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install AWS CDK
+        run: |
+          npm install -g aws-cdk
+
+      - name: Install Pipenv
+        uses: dschep/install-pipenv-action@v1
+
+      - name: Install dependencies
+        run: |
+          pipenv install -d
+
+      - name: Configure awscli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy mosex
+        run: |
+          ENV=${{ steps.vars.outputs.branch }} \
+          pipenv run cdk deploy --app stack/app.py --require-approval never

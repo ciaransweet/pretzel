@@ -40,7 +40,7 @@ jobs:
           git diff --exit-code
 
 
-  test:
+  unit-tests:
     runs-on: ubuntu-latest
     needs: linting
     steps:
@@ -62,11 +62,17 @@ jobs:
         run: |
           pipenv run pytest
 
-  deploy:
+  integration-tests:
     runs-on: ubuntu-latest
-    needs: test
+    needs: unit-tests
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup git vars
+        id: vars
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "##[set-output name=commit;]$(git rev-parse --short "$GITHUB_SHA")"
 
       - name: Set up Python 3.8.3
         uses: actions/setup-python@v2
@@ -98,9 +104,11 @@ jobs:
 
       - name: Deploy mosex
         run: |
-          ENV=ci pipenv run cdk deploy --app stack/app.py --require-approval never
+          ENV=${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.commit }} \
+          pipenv run cdk deploy --app stack/app.py --require-approval never
 
       - name: Destroy mosex
         if: always()
         run: |
-          ENV=ci pipenv run cdk destroy --app stack/app.py --force
+          ENV=${{ steps.vars.outputs.branch }}-${{ steps.vars.outputs.commit }} \
+          pipenv run cdk destroy --app stack/app.py --force

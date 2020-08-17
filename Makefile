@@ -1,11 +1,11 @@
-.PHONEY: lint fmt unit integration diff deploy destroy
+.PHONEY: lint format unit integration diff deploy destroy
 
 lint:
 	PIPENV_DOTENV_LOCATION=.env pipenv run flake8 .
 	PIPENV_DOTENV_LOCATION=.env pipenv run isort --check-only --profile black .
 	PIPENV_DOTENV_LOCATION=.env pipenv run black --check --diff .
 
-fmt:
+format:
 	PIPENV_DOTENV_LOCATION=.env pipenv run isort --profile black .
 	PIPENV_DOTENV_LOCATION=.env pipenv run black .
 

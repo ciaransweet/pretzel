@@ -1,10 +1,12 @@
-# mosex ☁️ ![Master Status](https://github.com/ciaranevans/mosex/workflows/CI/badge.svg?branch=master)
-(**Mo**norepo **Se**rverless e**X**ample)
+# pretzel ☁️ ![Master Status](https://github.com/ciaranevans/pretzel/workflows/CI/badge.svg?branch=master)
+
+_An AWS Serverless application within a monorepo_
+
 ---
 
-The idea behind `mosex` is to try and provide an example of a AWS hosted serverless application that is contained within a monorepo.
+The idea behind `pretzel` is to try and provide an example of a AWS hosted serverless application that is contained within a monorepo.
 
-`mosex` will comprise of:
+`pretzel` will comprise of:
 
 * Automated Builds
 * Automated Tests
@@ -13,6 +15,6 @@ The idea behind `mosex` is to try and provide an example of a AWS hosted serverl
 * Automated Deployments
 * CI/CD
 
-_Now I think about it, `pretzel` is a much more fun name, and it links to the repeatability ideas lol_
+_The name Pretzel was decided when A: I renamed it from MoSeX (Monorepo Serverless eXample) and B: when I found this gif:_
 
 ![Pretzel Making Bot](https://media.giphy.com/media/bwmYGtDbRCJyg/giphy-downsized.gif)

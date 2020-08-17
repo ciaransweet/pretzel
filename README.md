@@ -6,14 +6,10 @@ _An AWS Serverless application within a monorepo_
 
 The idea behind `pretzel` is to try and provide an example of a AWS hosted serverless application that is contained within a monorepo.
 
-`pretzel` will comprise of:
+`pretzel` will comprise of automated builds, tests, and deployments.
 
-* Automated Builds
-* Automated Tests
-    * Unit
-    * Integration
-* Automated Deployments
-* CI/CD
+CI/CD is handled with GitHub Actions - [Found here](https://github.com/ciaranevans/pretzel/actions)
+
 
 _The name Pretzel was decided when A: I renamed it from MoSeX (Monorepo Serverless eXample) and B: when I found this gif:_
 
@@ -25,29 +21,52 @@ _The name Pretzel was decided when A: I renamed it from MoSeX (Monorepo Serverle
 <summary><b>Dependencies</b></summary>
 Ensure the following system dependencies are in place:
 
-* Python 3.8+ (I recommend using [pyenv](https://github.com/pyenv/pyenv))
-* Node Version Manager [Here](https://github.com/nvm-sh/nvm)
-* Pipenv [Here](https://github.com/pypa/pipenv) - Make sure you set:
-    ```bash
-    export PYENV_ROOT=<root/to/pyenv/install>
-    export PIPENV_PYTHON=$PYENV_ROOT/shims/python
-    ```
-* AWS CLI [Here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-* AWS CDK `npm install -g aws-cdk`
-* A file named `.env` with a value for `ENV`
-    ```bash
-    $ cat .env
-    ENV=my-dev-env
-    ```
+**Python 3.8+**
+
+I recommend using [pyenv](https://github.com/pyenv/pyenv)
+
+**Node Version Manager**
+
+[Found here](https://github.com/nvm-sh/nvm)
+
+**Pipenv**
+
+[Found here](https://github.com/pypa/pipenv)
+
+Make sure you set:
+```bash
+export PYENV_ROOT=<root/to/pyenv/install>
+export PIPENV_PYTHON=$PYENV_ROOT/shims/python
+```
+This will ensure that Pipenv uses your Pyenv Python install
+
+**AWS CLI**
+
+[Found here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+
+**AWS CDK**
+
+```bash
+$ npm install -g aws-cdk
+```
+
+**An .env file**
+
+```bash
+$ cat .env
+ENV=my-dev-env
+```
 </details>
 
 <details>
 <summary><b>Setup commands</b></summary>
 Before you can develop, make sure you've run:
 
-* `nvm install` - To setup Node and use the correct version
-* `pipenv install -d` - To initialise the pipenv virtual environment and install the project dependencies
-* `aws configure` - To setup the AWS CLI
+```bash
+$ nvm install # To setup Node and use the correct version
+$ pipenv install -d # To initialise the pipenv virtual environment and install the project dependencies
+$ aws configure # To setup the AWS CLI
+```
 </details>
 
 <details>
@@ -87,9 +106,12 @@ This will run a `cdk destroy` using the value of `ENV` in your `.env` file to de
 
 Makefile commands can be linked together, before pushing a commit/preparing to make a PR I'd recommend running:
 
-`make format unit` - This will catch little formatting errors that are annoying to find out about when waiting for CI builds. It will also ensure that your tests pass and there's no silly mistakes laying around!
+**`make format unit`**
+
+> This will catch little formatting errors that are annoying to find out about when waiting for CI builds. It will also ensure that your tests pass and there's no silly mistakes laying around!
 
 To fully run an integration test, an AWS deployment is required to hit, for this, I recommend running:
 
-`make deploy integration destroy` - This will deploy the environment, run the tests then destroy it.
+**`make deploy integration destroy`**
+> This will deploy the environment, run the tests then destroy it.
 </details>

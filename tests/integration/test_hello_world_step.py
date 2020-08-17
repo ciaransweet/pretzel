@@ -10,7 +10,7 @@ def get_step_function_arn():
     env = os.environ.get("ENV", "dev")
     ssm_c = boto3.client("ssm")
     return ssm_c.get_parameter(
-        Name=f"/integration_tests/mosex-{env}/hello_world_step_function_arn"
+        Name=f"/integration_tests/pretzel-{env}/hello_world_step_function_arn"
     )["Parameter"]["Value"]
 
 

@@ -44,7 +44,7 @@ def test_that_no_process_orders_function_arn_handled_correctly():
 
 @mock_stepfunctions
 def test_that_three_orders_returns_correct_execution_arns():
-    sfn_c = boto3.client("stepfunctions", region_name='us-east-1')
+    sfn_c = boto3.client("stepfunctions", region_name="us-east-1")
     step_function_arn = create_step_function(sfn_c)
     with patch.dict(
         os.environ, {"PROCESS_ORDERS_STEP_FUNCTION_ARN": step_function_arn}
@@ -61,7 +61,7 @@ def test_that_three_orders_returns_correct_execution_arns():
 
 @mock_stepfunctions
 def test_that_no_orders_in_list_returns_correct_execution_arns():
-    sfn_c = boto3.client("stepfunctions", region_name='us-east-1')
+    sfn_c = boto3.client("stepfunctions", region_name="us-east-1")
     step_function_arn = create_step_function(sfn_c)
     with patch.dict(
         os.environ, {"PROCESS_ORDERS_STEP_FUNCTION_ARN": step_function_arn}

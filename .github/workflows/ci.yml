@@ -38,6 +38,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo AWS_DEFAULT_REGION=us-east-1 >> .env
+
       - name: Set up Python 3.8.3
         uses: actions/setup-python@v2
         with:

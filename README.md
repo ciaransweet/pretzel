@@ -45,6 +45,7 @@ $ npm install -g aws-cdk
 ```bash
 $ cat .env
 ENV=my-dev-env
+AWS_DEFAULT_REGION=us-east-1
 ```
 </details>
 

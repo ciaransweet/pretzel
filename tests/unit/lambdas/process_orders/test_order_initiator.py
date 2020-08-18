@@ -28,7 +28,7 @@ def create_step_function(sfn_c):
 
 @mock_stepfunctions
 def test_that_order_initator_initiates_orders_correctly():
-    sfn_c = boto3.client("stepfunctions", region_name="us-east-1")
+    sfn_c = boto3.client("stepfunctions")
     step_function_arn = create_step_function(sfn_c)
     with open(EXAMPLE_ORDERS_JSON_PATH, "r") as orders_in:
         orders = json.load(orders_in)["orders"]

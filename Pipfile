@@ -17,6 +17,7 @@ boto3 = "*"
 "aws-cdk.aws-stepfunctions" = "*"
 "aws-cdk.aws-stepfunctions-tasks" = "*"
 polling2 = "*"
+moto = "*"
 
 [packages]
 

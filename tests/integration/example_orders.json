@@ -1,0 +1,37 @@
+{
+    "orders": [
+        {
+            "customer": "TestCustomer1",
+            "pretzel_decorations": [
+                "chocolate_sauce",
+                "sprinkles"
+            ],
+            "shape": "STANDARD_KNOT",
+            "box_customisation": [
+                "bow",
+                "spotted_paper"
+            ]
+        },
+        {
+            "customer": "TestCustomer2",
+            "pretzel_decorations": [
+                "honey"
+            ],
+            "shape": "FIGURE_OF_EIGHT",
+            "box_customisation": []
+        },
+        {
+            "customer": "TestCustomer3",
+            "pretzel_decorations": [
+                "sesame_seeds",
+                "salt",
+                "honey"
+            ],
+            "shape": "STANDARD_KNOT",
+            "box_customisation": [
+                "bow",
+                "brown_paper"
+            ]
+        }
+    ]
+}

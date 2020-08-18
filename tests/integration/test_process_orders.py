@@ -43,6 +43,6 @@ def test_that_process_orders_returns_execution_arns_and_they_exist():
     assert_that(len(execution_arns)).is_equal_to(3)
     for execution_arn in execution_arns:
         assert_that(execution_arn).matches(
-            r"arn:aws:states:.*?:\d+?:execution:ProcessOrders.*:.*"
+            r"arn:aws:states:.*?:\d+?:execution:ProcessOrder.*:.*"
         )
         assert_that(execution_exists(execution_arn)).is_true()

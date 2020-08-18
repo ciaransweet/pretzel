@@ -1,10 +1,4 @@
-from aws_cdk import (
-    aws_lambda,
-    aws_ssm,
-    aws_stepfunctions,
-    aws_stepfunctions_tasks,
-    core,
-)
+from aws_cdk import aws_lambda, aws_ssm, aws_stepfunctions, core
 
 
 class PretzelStack(core.Stack):

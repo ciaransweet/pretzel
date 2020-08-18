@@ -1,6 +1,5 @@
 import json
 import os
-import re
 
 import boto3
 from assertpy import assert_that
@@ -19,11 +18,9 @@ def get_function_arn():
 
 
 def execution_exists(execution_arn):
-    sfn_c = boto3.client('stepfunctions')
+    sfn_c = boto3.client("stepfunctions")
     try:
-        sfn_c.describe_execution(
-            executionArn=execution_arn
-        )
+        sfn_c.describe_execution(executionArn=execution_arn)
         return True
     except (sfn_c.exceptions.ExecutionDoesNotExist, sfn_c.exceptions.InvalidArn):
         return False
@@ -46,6 +43,6 @@ def test_that_process_orders_returns_execution_arns_and_they_exist():
     assert_that(len(execution_arns)).is_equal_to(3)
     for execution_arn in execution_arns:
         assert_that(execution_arn).matches(
-            r'arn:aws:states:.*?:\d+?:execution:ProcessOrders.*:.*'
+            r"arn:aws:states:.*?:\d+?:execution:ProcessOrders.*:.*"
         )
         assert_that(execution_exists(execution_arn)).is_true()

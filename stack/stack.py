@@ -5,9 +5,9 @@ class PretzelStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        process_orders_step_function = aws_stepfunctions.StateMachine(
+        process_order_step_function = aws_stepfunctions.StateMachine(
             self,
-            "ProcessOrders",
+            "ProcessOrder",
             definition=aws_stepfunctions.Chain.start(
                 aws_stepfunctions.Pass(self, "Pass")
             ),
@@ -16,8 +16,8 @@ class PretzelStack(core.Stack):
         aws_ssm.StringParameter(
             self,
             "ProcessOrdersStepFunctionArn",
-            string_value=process_orders_step_function.state_machine_arn,
-            parameter_name=f"/integration_tests/{id}/process_orders_step_function_arn",
+            string_value=process_order_step_function.state_machine_arn,
+            parameter_name=f"/integration_tests/{id}/process_order_step_function_arn",
         )
 
         process_orders = aws_lambda.Function(
@@ -29,7 +29,7 @@ class PretzelStack(core.Stack):
             runtime=aws_lambda.Runtime.PYTHON_3_8,
             environment={
                 "PROCESS_ORDERS_STEP_FUNCTION_ARN": (
-                    process_orders_step_function.state_machine_arn
+                    process_order_step_function.state_machine_arn
                 )
             },
         )
@@ -41,4 +41,4 @@ class PretzelStack(core.Stack):
             parameter_name=f"/integration_tests/{id}/process_orders_lambda_arn",
         )
 
-        process_orders_step_function.grant_start_execution(process_orders)
+        process_order_step_function.grant_start_execution(process_orders)

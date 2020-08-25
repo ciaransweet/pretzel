@@ -37,8 +37,7 @@ def collect_decoration_descriptions(order: Dict[str, str]) -> str:
     decorations = _get_decoration_descriptions(order)
     if len(decorations) < 3:
         decoration_description = (
-            "For your pretzels, you've chosen:"
-            f" {' and '.join(decorations)}."
+            f"For your pretzels, you've chosen: {' and '.join(decorations)}."
         )
     else:
         decoration_description = (

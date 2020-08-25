@@ -1,0 +1,12 @@
+{
+    "customer": "TestCustomer2",
+    "pretzel_decorations": [
+        "caramel_sauce",
+        "chocolate_sauce"
+    ],
+    "shape": "STANDARD_KNOT",
+    "box_customisation": [
+        "bow",
+        "spotted_paper"
+    ]
+}
